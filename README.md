@@ -30,7 +30,7 @@ const dropsuit_bow = require("dropsuit-bow");
 Process [intents.json](https://github.com/ladooniani/dropsuit-bow/blob/main/test/intents.json) using 'jsonIntStrct' function:
 
 ```
-const json_data = require("bow/jsobj.js");
+const json_data = require("dropsuit-bow/jsobj.js");
 let intentData = json_data.jsonIntStrct("assets/json/intents.json");
 
 ```
