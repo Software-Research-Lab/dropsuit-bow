@@ -98,6 +98,13 @@ Output:
 
 ```
 
+```
+ [
+  1, 2, 1, 1,
+  2, 1, 1
+]
+```
+
 ## Links
 
 - npm: https://www.npmjs.com/package/dropsuit-bow
