@@ -35,7 +35,7 @@ let intentData = json_data.jsonIntStrct("assets/json/intents.json");
 
 ```
 
-Or provide test 'inputArray' and set boolean parameter (true/false) argument value to display console log processing results output information in terminal:
+or provide either an 'inputArray' of strings or leave it as null to process the bag of words from the input sentence.
 
 ```
 let inputArray = [
@@ -43,10 +43,15 @@ let inputArray = [
   "Mary also likes to watch football games.",
 ];
 
+```
+
+To display processing results output information in the terminal, set the boolean parameter argument value to true:
+
+```
 let dsbow = new dropsuit_bow(inputArray, true);
 ```
 
-#### bow(input: string|null, stemInput: boolean, stemData: boolean)
+#### bow(input: string|array|null, stemInput: boolean, stemData: boolean)
 
 - **input**: Input sentence string, or keep as null to process constructor 'input'. Processes default object instance key value _(req_arr: requests)_.
 - **stemInput**: (true/false) Enable or disable stemming for input string tokens.

@@ -65,7 +65,7 @@ const dropsuit_tok = require("../dropsuit-tok/index.js");
 let dstok = new dropsuit_tok(null, false);
 
 const dropsuit_stem = require("../dropsuit-stem/index.js");
-let dsstem = new dropsuit_stem(null, false);
+let dsstem = new dropsuit_stem(null, 0, false);
 
 /**
  * Constructs a Bag of Words (bow) object
@@ -82,46 +82,54 @@ let dsstem = new dropsuit_stem(null, false);
  */
 
 function bow_f(inputsent, jsobData, s_dostem, d_dostem, dispout) {
-  let bagArr = [];
-  let tokenWords = dstok.tok(jsobData, 1).tokArr();
-  inputsent = ds_clnstr.clnstr(inputsent).txt();
-  var inputsentArr = inputsent.split(" ");
-  let inpTokNmb = tokenWords.length;
-  let inpStrNmb = inputsentArr.length;
-  if (s_dostem == true) {
-    inputsentArr = dsstem.stem(inputsentArr, 0, 0);
-  }
-  if (d_dostem == true) {
-    tokenWords = dsstem.stem(tokenWords, 0, 0);
-  }
-  for (z = 0; z < tokenWords.length; z++) {
-    bagArr.push(0);
-  }
-  for (f = 0; f < inputsentArr.length; f++) {
-    let p = inputsentArr[f].trim();
-    for (s = 0; s < tokenWords.length; s++) {
-      let w = tokenWords[s].trim();
-      if (w == p) {
-        objIndex = tokenWords.indexOf(w);
-        if (objIndex !== -1) {
-          let indexVal = bagArr[objIndex];
-          bagArr[objIndex] = indexVal + 1;
+  if (jsobData != null || inputsent != null) {
+    if (jsobData == null) {
+      jsobData = inputsent;
+    } else if (inputsent == null) {
+      inputsent = jsobData;
+    }
+
+    let bagArr = [];
+    let tokenWords = dstok.tok(jsobData, 1).tokArr();
+    inputsent = ds_clnstr.clnstr(inputsent).txt();
+    var inputsentArr = inputsent.split(" ");
+    let inpTokNmb = tokenWords.length;
+    let inpStrNmb = inputsentArr.length;
+    if (s_dostem == true) {
+      inputsentArr = dsstem.stem(inputsentArr, 0, 0, true);
+    }
+    if (d_dostem == true) {
+      tokenWords = dsstem.stem(tokenWords, 0, 0, true);
+    }
+    for (z = 0; z < tokenWords.length; z++) {
+      bagArr.push(0);
+    }
+    for (f = 0; f < inputsentArr.length; f++) {
+      let p = inputsentArr[f].trim();
+      for (s = 0; s < tokenWords.length; s++) {
+        let w = tokenWords[s].trim();
+        if (w == p) {
+          objIndex = tokenWords.indexOf(w);
+          if (objIndex !== -1) {
+            let indexVal = bagArr[objIndex];
+            bagArr[objIndex] = indexVal + 1;
+          }
         }
       }
     }
-  }
 
-  display(
-    dispout,
-    inputsentArr,
-    tokenWords,
-    inpStrNmb,
-    inpTokNmb,
-    s_dostem,
-    d_dostem,
-    bagArr
-  ); /// DISPLAY >>
-  return bagArr;
+    display(
+      dispout,
+      inputsentArr,
+      tokenWords,
+      inpStrNmb,
+      inpTokNmb,
+      s_dostem,
+      d_dostem,
+      bagArr
+    ); /// DISPLAY >>
+    return bagArr;
+  }
 }
 
 //#endregion

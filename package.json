@@ -24,7 +24,7 @@
   "homepage": "https://github.com/ladooniani/dropsuit-bow#readme",
   "dependencies": {
     "dropsuit-clnstr": "^1.0.11",
-    "dropsuit-stem": "^1.0.5",
+    "dropsuit-stem": "^1.0.6",
     "dropsuit-tok": "^1.0.9"
   },
   "devDependencies": {
