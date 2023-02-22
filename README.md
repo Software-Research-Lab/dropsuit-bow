@@ -27,7 +27,53 @@ const dropsuit_bow = require("dropsuit-bow");
 
 ```
 
-Process [intents.json](https://github.com/ladooniani/dropsuit-bow/blob/main/test/intents.json) using 'jsonIntStrct' function:
+The provided code imports the Dropsuit Bow library into your project. You can create a new instance of the dropsuit_bow class by passing in null as the argument, which will process the basic bag of words from the input sentence. If you want to see the processing results in the terminal, you can set the second argument to true when creating the instance, like this:
+
+```
+let dsbow = new dropsuit_bow(null, false);
+```
+
+#### bow(input: string|array|null)
+
+- **input**: Input sentence string, or keep as null to process constructor 'input'.
+
+```
+let input = "John likes to watch movies. Mary likes movies too.";
+
+let out = dsbow.bow(input);
+console.log(out);
+```
+
+Processing output:
+
+```
+
+Input: [ 'john likes to watch movies mary likes movies too' ]
+
+Tokens ( 7 ):
+
+ [
+  'john',   'likes',
+  'to',     'watch',
+  'movies', 'mary',
+  'too'
+]
+
+BOW values:
+
+ [
+  1, 2, 1, 1,
+  2, 1, 1
+]
+
+Bag of Words:
+
+ { john: 1, likes: 2, to: 1, watch: 1, movies: 2, mary: 1, too: 1 }
+
+
+```
+
+Refer to the [tests](https://github.com/ladooniani/dropsuit-bow/blob/main/test/index.test.js) for more information on how to use additional options for Bag of Words. You can provide an 'intentData' object from the [intents.json](https://github.com/ladooniani/dropsuit-bow/blob/main/test/intents.json) file to the constructor using the 'jsonIntStrct' function, as shown below:
 
 ```
 const json_data = require("dropsuit-bow/jsobj.js");
@@ -35,74 +81,13 @@ let intentData = json_data.jsonIntStrct("assets/json/intents.json");
 
 ```
 
-or provide either an 'inputArray' of strings or leave it as null to process the bag of words from the input sentence.
+Alternatively, you can provide an array of strings to the constructor as input:
 
 ```
 let inputArray = [
   "John likes to watch movies. Mary likes movies too.",
   "Mary also likes to watch football games.",
 ];
-
-```
-
-To display processing results output information in the terminal, set the boolean parameter argument value to true:
-
-```
-let dsbow = new dropsuit_bow(inputArray, true);
-```
-
-#### bow(input: string|array|null, stemInput: boolean, stemData: boolean)
-
-- **input**: Input sentence string, or keep as null to process constructor 'input'. Processes default object instance key value _(req_arr: requests)_.
-- **stemInput**: (true/false) Enable or disable stemming for input string tokens.
-- **stemData**: (true/false) Enable or disable stemming for data tokens.
-
-```
-let input = "John likes to watch movies. Mary likes movies too.";
-
-let out = dsbow.bow(input, false, false);
-console.log(out);
-```
-
-Processing output:
-
-```
-Input:
-
-Sentence words ( 9 ) stemming ( false ) number ( 9 ):
-
- [
-  'john',   'likes',
-  'to',     'watch',
-  'movies', 'mary',
-  'likes',  'movies',
-  'too'
-]
-
-Data tokens ( 10 ) stemming ( false ) number ( 10 ):
-
- [
-  'john',     'likes',
-  'to',       'watch',
-  'movies',   'mary',
-  'too',      'also',
-  'football', 'games'
-]
-
-Output:
-
- [
-  1, 2, 1, 1, 2,
-  1, 1, 0, 0, 0
-]
-
-```
-
-```
- [
-  1, 2, 1, 1,
-  2, 1, 1
-]
 ```
 
 ## Links

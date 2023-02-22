@@ -13,10 +13,8 @@ function displayInfoData() {
     "\n-----------------------------------------------------------\n";
   const libraryInformation = line + liblink + libName;
   const functionDescription = `${libraryInformation}
-  bow(null/string, boolean, boolean)
+  bow(null/string/array)
   Input: string (Sentence raw string), or null (to process the constructor input)
-  boolean (true/false) for enabling or disabling stemming for input string tokens
-  boolean (true/false) for enabling or disabling stemming for data tokens
   ${divider}`;
 
   const displayInfoData = {

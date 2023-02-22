@@ -44,13 +44,11 @@ function Constructor(inputObj, dsout) {
  * This function can process both an input sentence/word, or use the default input specified in the constructor.
  * Processes default object instance key value (req_arr: requests).
  * @param {string} [input=null] - The input sentence/word to be processed. Leave as null to use the default input specified in the constructor.
- * @param {boolean} [s_dostem=false] - Enable or disable stemming for input string tokens.
- * @param {boolean} [d_dostem=false] - Enable or disable stemming for data tokens.
  * @returns {object} - Returns a 'Bag of Words' object, with a method to retrieve the processed array.
  */
 
-Constructor.prototype.bow = function (inputData, s_dostem, d_dostem) {
-  let out = bow_f(inputData, this.inputObj, s_dostem, d_dostem, this.dsout);
+Constructor.prototype.bow = function (inputData) {
+  let out = bow_f(inputData, this.inputObj, this.dsout);
   return out;
 };
 
@@ -64,72 +62,77 @@ var ds_clnstr = new dropsuit_clnstr(null, false);
 const dropsuit_tok = require("../dropsuit-tok/index.js");
 let dstok = new dropsuit_tok(null, false);
 
-const dropsuit_stem = require("../dropsuit-stem/index.js");
-let dsstem = new dropsuit_stem(null, 0, false);
-
 /**
  * Constructs a Bag of Words (bow) object
  * @function
  * @constructor
  * @description Processes an array of requests and returns a bag of words object
  * @param {string} [inputsent=null] - Optional input sentence or word to be processed. If not provided, the constructor's input will be used.
- * @param {boolean} [s_dostem=false] - Enable or disable stemming for input string tokens.
- * @param {boolean} [d_dostem=false] - Enable or disable stemming for data tokens.
  * @param {boolean} [dispout=false] - Display processing output results in the terminal.
  * @returns {object} - A bag of words object
  * @example
- * const bow = new bow(inputsent, s_dostem, d_dostem, dispout);
+ * const bow = new bow(inputsent, dispout);
  */
 
-function bow_f(inputsent, jsobData, s_dostem, d_dostem, dispout) {
+function bow_f(inputsent, jsobData, dispout) {
   if (jsobData != null || inputsent != null) {
     if (jsobData == null) {
       jsobData = inputsent;
     } else if (inputsent == null) {
       inputsent = jsobData;
     }
-
-    let bagArr = [];
     let tokenWords = dstok.tok(jsobData, 1).tokArr();
     inputsent = ds_clnstr.clnstr(inputsent).txt();
-    var inputsentArr = inputsent.split(" ");
-    let inpTokNmb = tokenWords.length;
-    let inpStrNmb = inputsentArr.length;
-    if (s_dostem == true) {
-      inputsentArr = dsstem.stem(inputsentArr, 0, 0, true);
-    }
-    if (d_dostem == true) {
-      tokenWords = dsstem.stem(tokenWords, 0, 0, true);
-    }
-    for (z = 0; z < tokenWords.length; z++) {
-      bagArr.push(0);
-    }
-    for (f = 0; f < inputsentArr.length; f++) {
-      let p = inputsentArr[f].trim();
-      for (s = 0; s < tokenWords.length; s++) {
-        let w = tokenWords[s].trim();
-        if (w == p) {
-          objIndex = tokenWords.indexOf(w);
-          if (objIndex !== -1) {
-            let indexVal = bagArr[objIndex];
-            bagArr[objIndex] = indexVal + 1;
-          }
+    var inputsentArr = dstok.tok(inputsent, 0).tokArr();
+    let bows = getBows(inputsentArr, tokenWords);
+    let bow = bowsObj(tokenWords, bows[0], bows[1]);
+    display(inputsent, dispout, tokenWords, bows[0], bows[1]); /// DISPLAY >>
+    return bow;
+  }
+}
+
+function getBows(inputsentArr, tokenWords) {
+  let nBow = [];
+  const wBow = {};
+  for (z = 0; z < tokenWords.length; z++) {
+    nBow.push(0);
+  }
+  for (f = 0; f < inputsentArr.length; f++) {
+    let p = inputsentArr[f]
+      .trim()
+      .toLowerCase()
+      .replace(/[^\w\s]/g, "");
+    for (let i = 0; i < tokenWords.length; i++) {
+      let token = tokenWords[i].trim(); /// <-- Stemming required
+      if (token == p) {
+        objIndex = tokenWords.indexOf(token);
+        if (objIndex !== -1) {
+          let indexVal = nBow[objIndex];
+          nBow[objIndex] = indexVal + 1;
+          wBow[token] = (wBow[token] || 0) + 1;
         }
       }
     }
-
-    display(
-      dispout,
-      inputsentArr,
-      tokenWords,
-      inpStrNmb,
-      inpTokNmb,
-      s_dostem,
-      d_dostem,
-      bagArr
-    ); /// DISPLAY >>
-    return bagArr;
   }
+  return [wBow, nBow];
+}
+
+function bowsObj(tokenWords, wBow, nBow) {
+  const bowobj = {
+    tokenized: tokenWords,
+    word_bow: wBow,
+    numb_bow: nBow,
+    tokens: function () {
+      return this.tokenized;
+    },
+    bowv: function () {
+      return this.numb_bow;
+    },
+    bow: function () {
+      return this.word_bow;
+    },
+  };
+  return bowobj;
 }
 
 //#endregion
@@ -141,37 +144,20 @@ let fnctit = getdt.displayInfoData();
 const line = fnctit.line;
 var description = fnctit.descript;
 
-function display(
-  dispout,
-  inputsentArr,
-  tokenWords,
-  inpStrNmb,
-  inpTokNmb,
-  s_dostem,
-  d_dostem,
-  bagArr
-) {
+function display(inputsent, dispout, tokenWords, wBow, nBow) {
   if (dispout == true) {
     console.log(
       description,
-      "\nInput:\n\nSentence words (",
-      inpStrNmb,
-      ") stemming (",
-      s_dostem,
-      ") number (",
-      inputsentArr.length,
-      "):\n\n",
-      inputsentArr,
-      "\n\nData tokens (",
-      inpTokNmb,
-      ") stemming (",
-      d_dostem,
-      ") number (",
+      "\nInput:",
+      [inputsent],
+      "\n\nTokens (",
       tokenWords.length,
       "):\n\n",
       tokenWords,
-      "\n\nOutput:\n\n",
-      bagArr,
+      "\n\nBOW values:\n\n",
+      nBow,
+      "\n\nBag of Words:\n\n",
+      wBow,
       "\n",
       line
     );
