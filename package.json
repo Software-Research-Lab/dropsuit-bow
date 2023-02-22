@@ -1,6 +1,6 @@
 {
   "name": "dropsuit-bow",
-  "version": "1.0.9",
+  "version": "1.0.8",
   "description": "DropSuit NLP - bow function: A JavaScript and Node.js library for generating a bag of words from input and data requests",
   "main": "index.js",
   "scripts": {
