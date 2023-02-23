@@ -55,30 +55,15 @@ Processing output:
 ```
 bow output: {
   tokenized: [
-    'john',     'likes',
-    'to',       'watch',
-    'movies',   'mary', 
-    'too',      'also', 
-    'football', 'games',
-    'tok'
+    'john',   'likes',
+    'to',     'watch',
+    'movies', 'mary',
+    'too'
   ],
-  word_bow: {
-    john: 1,
-    likes: 3,
-    to: 2,
-    watch: 2,
-    movies: 2,
-    mary: 2,
-    too: 1,
-    also: 1,
-    football: 1,
-    games: 1,
-    tok: 1
-  },
+  word_bow: { john: 1, likes: 2, to: 1, watch: 1, movies: 2, mary: 1, too: 1 },
   numb_bow: [
-    1, 3, 2, 2, 2,
-    2, 1, 1, 1, 1,
-    1
+    1, 2, 1, 1,
+    2, 1, 1
   ],
   tokens: [Function: tokens],
   bowv: [Function: bowv],
