@@ -46,7 +46,7 @@ let dsbow = new dropsuit_bow(null, false);
 ```
 let input = "John likes to watch movies. Mary likes movies too.";
 
-let out = dsbow.bow(input);
+let out = dsbow.bow(input).bow();
 console.log(out);
 ```
 
