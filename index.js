@@ -103,7 +103,7 @@ function getBows(inputsentArr, tokenWords) {
       .toLowerCase()
       .replace(/[^\w\s]/g, "");
     for (let i = 0; i < tokenWords.length; i++) {
-      let token = tokenWords[i].trim(); /// <-- Stemming required
+      let token = tokenWords[i].trim();
       if (token == p) {
         objIndex = tokenWords.indexOf(token);
         if (objIndex !== -1) {
