@@ -35,7 +35,13 @@ let dsbow = new dropsuit_bow(null, false);
 
 #### bow(input: string|array|null)
 
-- **input**: Input sentence string, or keep as null to process constructor 'input'.
+- **input**: Input sentence string, or leave as null to use constructor input.
+
+#### Return option:
+
+- **bow()** Returns the bag of words (BOW) with word count pairs in the format of { 'word': 1, ... }.
+- **bowv()** Returns the numeric BOW array [0, 1, ...].
+- **tokens()** Returns an array of processed tokens.
 
 ```
 let input = "John likes to watch movies. Mary likes movies too.";
