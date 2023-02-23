@@ -11,7 +11,7 @@ let inputArray = [
 ];
 
 let ClassicBOW =
-  "Classic BOW: Counts the frequency of words in a given input sentence against itself: [1, 2, 1, 1, 2, 1, 1].";
+  "Classic BOW: Counts the frequency of words in a given input sentence: [1, 2, 1, 1, 2, 1, 1].";
 
 let expected_output_bow_bowb1 = {
   john: 1,
