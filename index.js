@@ -85,8 +85,9 @@ function bow_f(inputsent, jsobData, dispout) {
     inputsent = ds_clnstr.clnstr(inputsent).txt();
     var inputsentArr = dstok.tok(inputsent, 0).tokArr();
     let bows = getBows(inputsentArr, tokenWords);
-    let bow = bowsObj(tokenWords, bows[0], bows[1]);
-    display(inputsent, dispout, tokenWords, bows[0], bows[1]); /// DISPLAY >>
+    let charBow = getCharBows(inputsentArr);
+    let bow = bowsObj(tokenWords, bows[0], bows[1], charBow);
+    display(inputsent, dispout, tokenWords, bows[0], bows[1], charBow); /// DISPLAY >>
     return bow;
   }
 }
@@ -117,22 +118,83 @@ function getBows(inputsentArr, tokenWords) {
   return [wBow, nBow];
 }
 
-function bowsObj(tokenWords, wBow, nBow) {
+function getCharBows(sentence) {
+  let aos = arrStrChecker(sentence);
+  sentence = arrToStr(sentence, aos);
+  const bag = {};
+  let charToken;
+  for (var i = 0; i < sentence.length; i++) {
+    charToken = sentence.charAt(i);
+    if (!bag[charToken]) {
+      bag[charToken] = 1;
+    } else {
+      bag[charToken]++;
+    }
+  }
+  return [bag, sentence];
+}
+
+function bowsObj(tokenWords, wBow, nBow, charBow) {
   const bowobj = {
     tokenized: tokenWords,
     word_bow: wBow,
     numb_bow: nBow,
+    char_bow: charBow[0],
+    cont_str: charBow[1],
     tokens: function () {
       return this.tokenized;
     },
-    bowv: function () {
+    cntStr: function () {
+      return this.cont_str;
+    },
+    wrdBow: function () {
+      return this.word_bow;
+    },
+    numBow: function () {
       return this.numb_bow;
     },
-    bow: function () {
-      return this.word_bow;
+    chrBow: function () {
+      return this.char_bow;
     },
   };
   return bowobj;
+}
+
+function arrStrChecker(inputdtwords) {
+  let isArray = arrChecker(inputdtwords);
+  var isString = stringChecker(inputdtwords);
+  if (isString == true) {
+    return "string";
+  } else if (isArray == true) {
+    return "array";
+  }
+}
+
+function arrChecker(array) {
+  const result = Array.isArray(array);
+  if (result) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function stringChecker(string) {
+  if (typeof string === "string") {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function arrToStr(input, aos) {
+  let out;
+  if (aos == "array") {
+    out = input.join(" ").replace(/\s/g, "");
+    return out;
+  } else {
+    return input;
+  }
 }
 
 //#endregion
@@ -144,7 +206,7 @@ let fnctit = getdt.displayInfoData();
 const line = fnctit.line;
 var description = fnctit.descript;
 
-function display(inputsent, dispout, tokenWords, wBow, nBow) {
+function display(inputsent, dispout, tokenWords, wBow, nBow, charBow) {
   if (dispout == true) {
     console.log(
       description,
@@ -158,6 +220,8 @@ function display(inputsent, dispout, tokenWords, wBow, nBow) {
       nBow,
       "\n\nBag of Words:\n\n",
       wBow,
+      "\n\nChar BOW\n\n",
+      charBow,
       "\n",
       line
     );

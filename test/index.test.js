@@ -97,14 +97,14 @@ describe("dropsuit-bow", () => {
       //#endregion
 
       let dsbow1 = new dropsuit_bow(null, true);
-      let bow_bowb_output1 = dsbow1.bow(inputArray[0]).bow();
+      let bow_bowb_output1 = dsbow1.bow(inputArray[0]).wrdBow();
       console.log("\n\nOutput bow():", bow_bowb_output1, "\n\n");
       assert.deepEqual(bow_bowb_output1, expected_output_bow_bowb1);
     });
 
     it(BOWwithVocabulary, () => {
       let dsbow = new dropsuit_bow(inputArray, false);
-      let bow_bowb_output2 = dsbow.bow(inputArray[0]).bow();
+      let bow_bowb_output2 = dsbow.bow(inputArray[0]).wrdBow();
       console.log("\n\nOutput bow():", bow_bowb_output2, "\n\n");
       assert.deepEqual(bow_bowb_output2, expected_output_bow_bowb2);
     });
@@ -123,31 +123,31 @@ describe("dropsuit-bow", () => {
       //#endregion
 
       let dsbow = new dropsuit_bow(null, false);
-      let bow_bowb_output3 = dsbow.bow(inputArray).bow();
+      let bow_bowb_output3 = dsbow.bow(inputArray).wrdBow();
       console.log("\n\nOutput bow():", bow_bowb_output3, "\n\n");
       assert.deepEqual(bow_bowb_output3, expected_output_bow_bowb3);
     });
 
     it(BOWComparison, () => {
       let dsbow4 = new dropsuit_bow(inputArray[0], false);
-      let bow_bowb_output4 = dsbow4.bow(inputArray[1]).bow();
+      let bow_bowb_output4 = dsbow4.bow(inputArray[1]).wrdBow();
       console.log("\n\nOutput bow():", bow_bowb_output4, "\n\n");
       assert.deepEqual(bow_bowb_output4, expected_output_bow_bowb4);
 
       let dsbow5 = new dropsuit_bow(inputArray[1], false);
-      let bow_bowb_output5 = dsbow5.bow(inputArray[0]).bow();
+      let bow_bowb_output5 = dsbow5.bow(inputArray[0]).wrdBow();
       console.log("\n\nOutput bow():", bow_bowb_output5, "\n\n");
       assert.deepEqual(bow_bowb_output5, expected_output_bow_bowb5);
     });
 
     it(CorpusComparisonBOW, () => {
       let dsbow6 = new dropsuit_bow(inputArray[0], false);
-      let bow_bowb_output6 = dsbow6.bow(inputArray).bow();
+      let bow_bowb_output6 = dsbow6.bow(inputArray).wrdBow();
       console.log("\n\nOutput bow():", bow_bowb_output6, "\n\n");
       assert.deepEqual(bow_bowb_output6, expected_output_bow_bowb6);
 
       let dsbow7 = new dropsuit_bow(inputArray[1], false);
-      let bow_bowb_output7 = dsbow7.bow(inputArray).bow();
+      let bow_bowb_output7 = dsbow7.bow(inputArray).wrdBow();
       console.log("\n\nOutput bow():", bow_bowb_output7, "\n\n");
       assert.deepEqual(bow_bowb_output7, expected_output_bow_bowb7);
     });

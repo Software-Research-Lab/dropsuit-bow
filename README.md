@@ -39,8 +39,9 @@ let dsbow = new dropsuit_bow(null, false);
 
 #### Return option:
 
-- **bow()** Returns the bag of words (BOW) with word count pairs in the format of { 'word': 1, ... }.
-- **bowv()** Returns the numeric BOW array [0, 1, ...].
+- **wrdBow()** Returns the bag of words (BOW) with word count pairs in the format of ```{ 'word': 1, ... }```.
+- **numBow()** Returns the numeric BOW array ```[0, 1, ...]```.
+- **chrBow()** Returns character frequency vector ```{ 'a': 1, ... }```.
 - **tokens()** Returns an array of processed tokens.
 
 ```
@@ -65,9 +66,31 @@ bow output: {
     1, 2, 1, 1,
     2, 1, 1
   ],
+  char_bow: {
+    j: 1,
+    o: 6,
+    h: 2,
+    n: 1,
+    l: 2,
+    i: 4,
+    k: 2,
+    e: 4,
+    s: 4,
+    t: 3,
+    w: 1,
+    a: 2,
+    c: 1,
+    m: 3,
+    v: 2,
+    r: 1,
+    y: 1
+  },
+  cont_str: 'johnlikestowatchmoviesmarylikesmoviestoo',
   tokens: [Function: tokens],
-  bowv: [Function: bowv],
-  bow: [Function: bow]
+  cntStr: [Function: cntStr],
+  wrdBow: [Function: wrdBow],
+  numBow: [Function: numBow],
+  chrBow: [Function: chrBow]
 }
 
 ```
