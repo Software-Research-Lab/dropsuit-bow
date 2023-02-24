@@ -113,8 +113,9 @@ function bow_f(inputsent, jsobData, dispout) {
     inputsent = ds_clnstr.clnstr(inputsent).txt();
     var inputsentArr = dstok.tok(inputsent, 0).tokArr();
     let bows = getBows(inputsentArr, tokenWords);
-    let bow = bowsObj(tokenWords, bows[0], bows[1]);
-    display(inputsent, dispout, tokenWords, bows[0], bows[1]); /// DISPLAY >>
+    let charBow = getCharBows(inputsentArr);
+    let bow = bowsObj(tokenWords, bows[0], bows[1], charBow);
+    display(bow, dispout); /// DISPLAY >>
     return bow;
   }
 }
@@ -131,7 +132,7 @@ function getBows(inputsentArr, tokenWords) {
       .toLowerCase()
       .replace(/[^\w\s]/g, "");
     for (let i = 0; i &lt; tokenWords.length; i++) {
-      let token = tokenWords[i].trim(); /// &lt;-- Stemming required
+      let token = tokenWords[i].trim();
       if (token == p) {
         objIndex = tokenWords.indexOf(token);
         if (objIndex !== -1) {
@@ -145,22 +146,154 @@ function getBows(inputsentArr, tokenWords) {
   return [wBow, nBow];
 }
 
-function bowsObj(tokenWords, wBow, nBow) {
+function getCharBows(sentence) {
+  let aos = arrStrChecker(sentence);
+  let spstr = arrToStr(sentence, aos, 2);
+  sentence = arrToStr(sentence, aos, 1);
+  const bag = {};
+  let charToken;
+  for (var i = 0; i &lt; sentence.length; i++) {
+    charToken = sentence.charAt(i);
+    if (!bag[charToken]) {
+      bag[charToken] = 1;
+    } else {
+      bag[charToken]++;
+    }
+  }
+  return [bag, sentence, spstr];
+}
+
+function bowsObj(tokenWords, wBow, nBow, charBow) {
   const bowobj = {
     tokenized: tokenWords,
     word_bow: wBow,
     numb_bow: nBow,
+    proc_str: charBow[2],
+    cont_str: charBow[1],
+    char_cnt: charBow[0],
     tokens: function () {
       return this.tokenized;
-    },
-    bowv: function () {
-      return this.numb_bow;
     },
     bow: function () {
       return this.word_bow;
     },
+    value: function () {
+      return this.numb_bow;
+    },
+    count: function () {
+      return this.char_cnt;
+    },
+    design: function (type, delimiter) {
+      return designTypes(
+        type,
+        delimiter,
+        tokenWords,
+        this.proc_str,
+        this.cont_str
+      );
+    },
   };
   return bowobj;
+}
+
+function designTypes(type, delimiter, tokenWords, str, cont_str) {
+  if (type == undefined) {
+    return str;
+  } else {
+    if (type != "") {
+      type = ds_clnstr.clnstr(type).txt();
+    }
+    if (type == "camel") {
+      return camel(tokenWords, delimiter);
+    } else if (type == "pascal") {
+      return pascal(tokenWords, delimiter);
+    } else if (type == "") {
+      return set(tokenWords, delimiter);
+    } else {
+      return cont_str;
+    }
+  }
+}
+
+function set(tokenWords, delimiter) {
+  let desDtr = tokenWords[0];
+  if (delimiter === undefined) {
+    delimiter = "";
+  }
+  for (let i = 1; i &lt; tokenWords.length; i++) {
+    desDtr = desDtr + delimiter + tokenWords[i];
+  }
+  return desDtr;
+}
+
+function camel(tokenWords, delimiter) {
+  let desDtr;
+  desDtr = tokenWords[0];
+  desDtr = build(tokenWords, desDtr, delimiter);
+  return desDtr;
+}
+
+function pascal(tokenWords, delimiter) {
+  let desDtr;
+  desDtr = capitalize(tokenWords[0]);
+  desDtr = build(tokenWords, desDtr, delimiter);
+  return desDtr;
+}
+
+function build(tokenWords, desDtr, delimiter) {
+  if (delimiter === undefined) {
+    delimiter = "";
+  }
+  for (let i = 1; i &lt; tokenWords.length; i++) {
+    desDtr = desDtr + delimiter + capitalize(tokenWords[i]);
+  }
+  return desDtr;
+}
+
+function capitalize(input) {
+  const output = input.charAt(0).toUpperCase() + input.slice(1);
+  return output;
+}
+
+function arrStrChecker(inputdtwords) {
+  let isArray = arrChecker(inputdtwords);
+  var isString = stringChecker(inputdtwords);
+  if (isString == true) {
+    return "string";
+  } else if (isArray == true) {
+    return "array";
+  }
+}
+
+function arrChecker(array) {
+  const result = Array.isArray(array);
+  if (result) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function stringChecker(string) {
+  if (typeof string === "string") {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function arrToStr(input, aos, cond) {
+  let out;
+  if (aos == "array") {
+    if (cond == 1) {
+      out = input.join(" ").replace(/\s/g, "");
+    } else if (cond == 2) {
+      out = input.join(" ");
+    }
+    return out;
+  } else {
+    return input;
+  }
 }
 
 //#endregion
@@ -171,24 +304,9 @@ const getdt = require("./infodt.js");
 let fnctit = getdt.displayInfoData();
 const line = fnctit.line;
 var description = fnctit.descript;
-
-function display(inputsent, dispout, tokenWords, wBow, nBow) {
+function display(bow, dispout) {
   if (dispout == true) {
-    console.log(
-      description,
-      "\nInput:",
-      [inputsent],
-      "\n\nTokens (",
-      tokenWords.length,
-      "):\n\n",
-      tokenWords,
-      "\n\nBOW values:\n\n",
-      nBow,
-      "\n\nBag of Words:\n\n",
-      wBow,
-      "\n",
-      line
-    );
+    console.log(description, "\n", bow, "\n", line);
   }
 }
 
@@ -215,7 +333,7 @@ module.exports = Constructor;
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Thu Feb 23 2023 02:51:33 GMT+0400 (Georgia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Sat Feb 25 2023 01:08:03 GMT+0400 (Georgia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

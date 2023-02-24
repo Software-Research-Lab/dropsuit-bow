@@ -87,7 +87,7 @@ function bow_f(inputsent, jsobData, dispout) {
     let bows = getBows(inputsentArr, tokenWords);
     let charBow = getCharBows(inputsentArr);
     let bow = bowsObj(tokenWords, bows[0], bows[1], charBow);
-    display(inputsent, dispout, tokenWords, bows[0], bows[1], charBow); /// DISPLAY >>
+    display(bow, dispout); /// DISPLAY >>
     return bow;
   }
 }
@@ -120,7 +120,8 @@ function getBows(inputsentArr, tokenWords) {
 
 function getCharBows(sentence) {
   let aos = arrStrChecker(sentence);
-  sentence = arrToStr(sentence, aos);
+  let spstr = arrToStr(sentence, aos, 2);
+  sentence = arrToStr(sentence, aos, 1);
   const bag = {};
   let charToken;
   for (var i = 0; i < sentence.length; i++) {
@@ -131,7 +132,7 @@ function getCharBows(sentence) {
       bag[charToken]++;
     }
   }
-  return [bag, sentence];
+  return [bag, sentence, spstr];
 }
 
 function bowsObj(tokenWords, wBow, nBow, charBow) {
@@ -139,25 +140,91 @@ function bowsObj(tokenWords, wBow, nBow, charBow) {
     tokenized: tokenWords,
     word_bow: wBow,
     numb_bow: nBow,
-    char_bow: charBow[0],
+    proc_str: charBow[2],
     cont_str: charBow[1],
+    char_cnt: charBow[0],
     tokens: function () {
       return this.tokenized;
     },
-    cntStr: function () {
-      return this.cont_str;
-    },
-    wrdBow: function () {
+    bow: function () {
       return this.word_bow;
     },
-    numBow: function () {
+    value: function () {
       return this.numb_bow;
     },
-    chrBow: function () {
-      return this.char_bow;
+    count: function () {
+      return this.char_cnt;
+    },
+    design: function (type, delimiter) {
+      return designTypes(
+        type,
+        delimiter,
+        tokenWords,
+        this.proc_str,
+        this.cont_str
+      );
     },
   };
   return bowobj;
+}
+
+function designTypes(type, delimiter, tokenWords, str, cont_str) {
+  if (type == undefined) {
+    return str;
+  } else {
+    if (type != "") {
+      type = ds_clnstr.clnstr(type).txt();
+    }
+    if (type == "camel") {
+      return camel(tokenWords, delimiter);
+    } else if (type == "pascal") {
+      return pascal(tokenWords, delimiter);
+    } else if (type == "") {
+      return set(tokenWords, delimiter);
+    } else {
+      return cont_str;
+    }
+  }
+}
+
+function set(tokenWords, delimiter) {
+  let desDtr = tokenWords[0];
+  if (delimiter === undefined) {
+    delimiter = "";
+  }
+  for (let i = 1; i < tokenWords.length; i++) {
+    desDtr = desDtr + delimiter + tokenWords[i];
+  }
+  return desDtr;
+}
+
+function camel(tokenWords, delimiter) {
+  let desDtr;
+  desDtr = tokenWords[0];
+  desDtr = build(tokenWords, desDtr, delimiter);
+  return desDtr;
+}
+
+function pascal(tokenWords, delimiter) {
+  let desDtr;
+  desDtr = capitalize(tokenWords[0]);
+  desDtr = build(tokenWords, desDtr, delimiter);
+  return desDtr;
+}
+
+function build(tokenWords, desDtr, delimiter) {
+  if (delimiter === undefined) {
+    delimiter = "";
+  }
+  for (let i = 1; i < tokenWords.length; i++) {
+    desDtr = desDtr + delimiter + capitalize(tokenWords[i]);
+  }
+  return desDtr;
+}
+
+function capitalize(input) {
+  const output = input.charAt(0).toUpperCase() + input.slice(1);
+  return output;
 }
 
 function arrStrChecker(inputdtwords) {
@@ -187,10 +254,14 @@ function stringChecker(string) {
   }
 }
 
-function arrToStr(input, aos) {
+function arrToStr(input, aos, cond) {
   let out;
   if (aos == "array") {
-    out = input.join(" ").replace(/\s/g, "");
+    if (cond == 1) {
+      out = input.join(" ").replace(/\s/g, "");
+    } else if (cond == 2) {
+      out = input.join(" ");
+    }
     return out;
   } else {
     return input;
@@ -205,26 +276,9 @@ const getdt = require("./infodt.js");
 let fnctit = getdt.displayInfoData();
 const line = fnctit.line;
 var description = fnctit.descript;
-
-function display(inputsent, dispout, tokenWords, wBow, nBow, charBow) {
+function display(bow, dispout) {
   if (dispout == true) {
-    console.log(
-      description,
-      "\nInput:",
-      [inputsent],
-      "\n\nTokens (",
-      tokenWords.length,
-      "):\n\n",
-      tokenWords,
-      "\n\nBOW values:\n\n",
-      nBow,
-      "\n\nBag of Words:\n\n",
-      wBow,
-      "\n\nChar BOW\n\n",
-      charBow,
-      "\n",
-      line
-    );
+    console.log(description, "\n", bow, "\n", line);
   }
 }
 

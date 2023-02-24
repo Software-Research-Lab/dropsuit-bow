@@ -39,22 +39,23 @@ let dsbow = new dropsuit_bow(null, false);
 
 #### Return option:
 
-- **wrdBow()** Returns the bag of words (BOW) with word count pairs in the format of ```{ 'word': 1, ... }```.
-- **numBow()** Returns the numeric BOW array ```[0, 1, ...]```.
-- **chrBow()** Returns character frequency vector ```{ 'a': 1, ... }```.
+- **bow()** Returns the bag of words (BOW) with word count pairs in the format of `{ 'word': 1 }`.
+- **value()** Returns the numeric BOW array `[ 0, 1 ]`
+- **count()** Returns character frequency vector `{ 'a': 1 }`.
 - **tokens()** Returns an array of processed tokens.
+- **design(type, delimiter)** Returns 'pascal' and 'camel' case with delimiter.
 
 ```
 let input = "John likes to watch movies. Mary likes movies too.";
 
-let out = dsbow.bow(input).bow();
+let out = dsbow.bow(input);
 console.log(out);
 ```
 
 Processing output:
 
 ```
-bow output: {
+ {
   tokenized: [
     'john',   'likes',
     'to',     'watch',
@@ -66,6 +67,8 @@ bow output: {
     1, 2, 1, 1,
     2, 1, 1
   ],
+  proc_str: 'john likes to watch movies mary likes movies too',
+  cont_str: 'johnlikestowatchmoviesmarylikesmoviestoo',
   char_bow: {
     j: 1,
     o: 6,
@@ -85,12 +88,11 @@ bow output: {
     r: 1,
     y: 1
   },
-  cont_str: 'johnlikestowatchmoviesmarylikesmoviestoo',
   tokens: [Function: tokens],
-  cntStr: [Function: cntStr],
-  wrdBow: [Function: wrdBow],
-  numBow: [Function: numBow],
-  chrBow: [Function: chrBow]
+  bow: [Function: bow],
+  value: [Function: value],
+  design: [Function: design],
+  count: [Function: count]
 }
 
 ```
