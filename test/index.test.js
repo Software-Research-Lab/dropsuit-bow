@@ -151,7 +151,7 @@ describe("dropsuit-bow", () => {
         val1,
         "\nbow():",
         bow1,
-        "\nOutput BOW-Vocabulary bow().value():",
+        "\nOutput Corpus-Based-Frequency-Count bow().value():",
         val2,
         "\nbow():",
         bow2
