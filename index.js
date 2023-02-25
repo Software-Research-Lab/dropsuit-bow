@@ -39,12 +39,12 @@ function Constructor(inputObj, dsout) {
 //#region bow
 
 /**
- * @Constructs bow
- * @description Creates a new instance of the 'Bag of Words' (bow) processing object.
- * This function can process both an input sentence/word, or use the default input specified in the constructor.
- * Processes default object instance key value (req_arr: requests).
- * @param {string} [input=null] - The input sentence/word to be processed. Leave as null to use the default input specified in the constructor.
- * @returns {object} - Returns a 'Bag of Words' object, with a method to retrieve the processed array.
+ * Constructs a new instance of the 'Bag of Words' (BOW) processing object.
+ * This function can process an input sentence or word, or use the default input specified in the constructor.
+ * @constructor
+ * @param {string|null} [input=null] - The input sentence or word to be processed. 
+ * Leave as `null` to use the default input specified in the constructor.
+ * @returns {object} - A 'Bag of Words' object, with a method to retrieve the processed array.
  */
 
 Constructor.prototype.bow = function (inputData) {
@@ -63,15 +63,16 @@ const dropsuit_tok = require("../dropsuit-tok/index.js");
 let dstok = new dropsuit_tok(null, false);
 
 /**
- * Constructs a Bag of Words (bow) object
+ * Constructs a Bag of Words (BOW) object.
+ *
  * @function
  * @constructor
- * @description Processes an array of requests and returns a bag of words object
- * @param {string} [inputsent=null] - Optional input sentence or word to be processed. If not provided, the constructor's input will be used.
+ * @description Creates a BOW object with optional input sentence or word and display options.
+ * @param {string|null} [inputsent=null] - Optional input sentence or word to be processed. If not provided, the constructor's input will be used.
  * @param {boolean} [dispout=false] - Display processing output results in the terminal.
- * @returns {object} - A bag of words object
+ * @returns {object} - A BOW object with a bag of words and accessory options.
  * @example
- * const bow = new bow(inputsent, dispout);
+ * const bow = new Bow(inputsent, dispout);
  */
 
 function bow_f(inputsent, jsobData, dispout) {
@@ -192,7 +193,6 @@ function designTypes(type, delimiter, tokenWords, inputsent, str, cont_str) {
     }
   }
 }
- 
 
 function set(tokenWords, delimiter) {
   let desDtr = tokenWords[0];
