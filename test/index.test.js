@@ -126,7 +126,7 @@ describe("dropsuit-bow", () => {
       //#endregion
 
       let dsbow1 = new dropsuit_bow(null, true);
-      let bow_bowb_output1 = dsbow1.bow(inputArray[0]).bow();
+      let bow_bowb_output1 = dsbow1.bow(input).bow();
       console.log("\n\nOutput bow():", bow_bowb_output1, "\n\n");
       assert.deepEqual(bow_bowb_output1, expected_output_bow_bowb1);
     });
@@ -136,11 +136,11 @@ describe("dropsuit-bow", () => {
     it(CorpusBasedFrequencyCount, () => {
       let inputs = "a e b c u a";
       let vocabularyCorpus = ["x a b c", "a b c x", "c a x b x"];
-      // BOW normal
+      // BOW 
       let dsbow1 = new dropsuit_bow(null, false);
       let val1 = dsbow1.bow(inputs).value();
       let bow1 = dsbow1.bow(inputs).bow();
-      // BOW with vocabulary
+      // Corpus Based Frequency Count
       let dsbow2 = new dropsuit_bow(vocabularyCorpus, false);
       let val2 = dsbow2.bow(inputs).value();
       let bow2 = dsbow2.bow(inputs).bow();
@@ -182,19 +182,19 @@ describe("dropsuit-bow", () => {
     });
 
     it(Comparison, () => {
-      let dsbow4 = new dropsuit_bow(inputArray[0], false);
+      let dsbow4 = new dropsuit_bow(input, false);
       let bow_bowb_output4 = dsbow4.bow(inputArray[1]).bow();
       console.log("\n\nOutput bow():", bow_bowb_output4, "\n\n");
       assert.deepEqual(bow_bowb_output4, expected_output_bow_bowb4);
 
       let dsbow5 = new dropsuit_bow(inputArray[1], false);
-      let bow_bowb_output5 = dsbow5.bow(inputArray[0]).bow();
+      let bow_bowb_output5 = dsbow5.bow(input).bow();
       console.log("\n\nOutput bow():", bow_bowb_output5, "\n\n");
       assert.deepEqual(bow_bowb_output5, expected_output_bow_bowb5);
     });
 
     it(CorpusComparison, () => {
-      let dsbow6 = new dropsuit_bow(inputArray[0], false);
+      let dsbow6 = new dropsuit_bow(input, false);
       let bow_bowb_output6 = dsbow6.bow(inputArray).bow();
       console.log("\n\nOutput bow():", bow_bowb_output6, "\n\n");
       assert.deepEqual(bow_bowb_output6, expected_output_bow_bowb6);
@@ -268,7 +268,7 @@ describe("dropsuit-bow", () => {
       );
       //#endregion
 
-      assert.deepEqual(output1, clean_string);
+      assert.deepEqual(output1, clean_string); /// john likes to watch movies mary likes movies too
       assert.deepEqual(output2, string_design_basic);
       assert.deepEqual(output3, string_delimiter);
       assert.deepEqual(output4, pascal_case);
