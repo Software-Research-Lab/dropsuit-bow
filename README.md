@@ -102,14 +102,36 @@ Processing output:
 The design(type, delimiter) option in the bow() function returns the output strings in pascal or camel case with the specified delimiter. The type parameter can be either "pascal" or "camel". The delimiter parameter is optional and can be any string. If not provided, the default delimiter is an empty string. Here's an example usage:
 
 ```
+let input = "The camel walks through the hot desert";
 let dsbdes = new dropsuit_bow(null, false);
-let output1 = dsbdes.bow(input).design(); // john likes to watch movies mary likes movies too
-let output2 = dsbdes.bow(input).design(""); // johnlikestowatchmoviesmarytoo
-let output3 = dsbdes.bow(input).design("", "-"); // john-likes-to-watch-movies-mary-too
-let output4 = dsbdes.bow(input).design("pascal"); // JohnLikesToWatchMoviesMaryToo
-let output5 = dsbdes.bow(input).design("pascal", "-"); // John-Likes-To-Watch-Movies-Mary-Too
-let output6 = dsbdes.bow(input).design("camel"); // johnLikesToWatchMoviesMaryToo
-let output7 = dsbdes.bow(input).design("camel", "~"); // john~Likes~To~Watch~Movies~Mary~Too
+let bow = dsbdes.bow(input);
+
+```
+
+Then, we can use the design function to generate different string representations of the bag of words, like this:
+
+```
+// Default (no arguments) returns a space separated string in camel case
+let output1 = dsbdes.design(); // theCamelWalksThroughTheHotDesert
+
+// Empty delimiter returns a string in camel case without spaces
+let output2 = dsbdes.design(""); // theCamelWalksThroughTheHotDesert
+
+// Delimiter "-" returns a hyphen separated string in kebab case
+let output3 = dsbdes.design("", "-"); // the-camel-walks-through-the-hot-desert
+
+// Pascal case with no delimiter
+let output4 = dsbdes.design("pascal"); // TheCamelWalksThroughTheHotDesert
+
+// Pascal case with delimiter "~"
+let output5 = dsbdes.design("pascal", "~"); // The~Camel~Walks~Through~The~Hot~Desert
+
+// Camel case with no delimiter
+let output6 = dsbdes.design("camel"); // theCamelWalksThroughTheHotDesert
+
+// Camel case with delimiter "@"
+let output7 = dsbdes.design("camel", "@"); // the@camel@walks@through@the@hot@desert
+
 ```
 
 Refer to the [tests](https://github.com/ladooniani/dropsuit-bow/blob/main/test/index.test.js) for more information on how to use additional options for Bag of Words. You can provide an 'intentData' object from the [intents.json](https://github.com/ladooniani/dropsuit-bow/blob/main/test/intents.json) file to the constructor using the 'jsonIntStrct' function, as shown below:
