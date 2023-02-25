@@ -139,7 +139,7 @@ function getCharBows(sentence) {
 function bowsObj(tokenWords, wBow, nBow, charBow, inputsent) {
   const bowobj = {
     tokenized: tokenWords,
-    word_bow: wBow,
+    bow_vect: wBow,
     val_vect: nBow,
     proc_str: charBow[2],
     cont_str: charBow[1],
@@ -148,7 +148,7 @@ function bowsObj(tokenWords, wBow, nBow, charBow, inputsent) {
       return this.tokenized;
     },
     vector: function () {
-      return this.word_bow;
+      return this.bow_vect;
     },
     values: function () {
       return this.val_vect;
