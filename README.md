@@ -104,7 +104,6 @@ The design(type, delimiter) option in the bow() function returns the output stri
 ```
 let input = "The camel walks through the hot desert";
 let dsbdes = new dropsuit_bow(null, false);
-let bow = dsbdes.bow(input);
 
 ```
 
@@ -112,25 +111,25 @@ Then, we can use the design function to generate different string representation
 
 ```
 // Default (no arguments) returns a space separated string
-let output1 = dsbdes.design(); // the camel walks through the hot desert
+let output1 = dsbdes.bow(input).design(); // the camel walks through the hot desert
 
 // Empty delimiter returns a string without spaces
-let output2 = dsbdes.design(""); // thecamelwalksthroughhotdesert
+let output2 = dsbdes.bow(input).design(""); // thecamelwalksthroughhotdesert
 
 // Delimiter "-" returns a hyphen separated string in kebab case
-let output3 = dsbdes.design("", "-"); // the-camel-walks-through-hot-desert
+let output3 = dsbdes.bow(input).design("", "-"); // the-camel-walks-through-hot-desert
 
 // Pascal case with no delimiter and 'pascal-' minus '-' property to remove duplicates
-let output4 = dsbdes.design("pascal-"); // theCamelWalksThroughHotDesert
+let output4 = dsbdes.bow(input).design("pascal-"); // theCamelWalksThroughHotDesert
 
 // Pascal case with delimiter "~"
-let output5 = dsbdes.design("pascal", "~"); // the~Camel~Walks~Through~The~Hot~Desert
+let output5 = dsbdes.bow(input).design("pascal", "~"); // the~Camel~Walks~Through~The~Hot~Desert
 
 // Camel case with no delimiter
-let output6 = dsbdes.design("camel"); // theCamelWalksThroughTheHotDesert
+let output6 = dsbdes.bow(input).design("camel"); // theCamelWalksThroughTheHotDesert
 
 // Camel case with delimiter " @"  and 'camel-' minus '-' property to remove duplicates
-let output7 = dsbdes.design("camel-", " @"); // the @Camel @Walks @Through @Hot @Desert
+let output7 = dsbdes.bow(input).design("camel-", " @"); // the @Camel @Walks @Through @Hot @Desert
 
 ```
 
