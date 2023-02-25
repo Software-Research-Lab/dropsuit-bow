@@ -72,7 +72,7 @@ let dstok = new dropsuit_tok(null, false);
  * @param {boolean} [dispout=false] - Display processing output results in the terminal.
  * @returns {object} - A BOW object with a bag of words and accessory options.
  * @example
- * const bow = new Bow(inputsent, dispout);
+ * const bow = new bow(inputsent, dispout);
  */
 
 function bow_f(inputsent, jsobData, dispout) {
