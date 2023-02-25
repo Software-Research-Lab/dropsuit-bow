@@ -108,29 +108,29 @@ let bow = dsbdes.bow(input);
 
 ```
 
-Then, we can use the design function to generate different string representations of the bag of words, like this:
+Then, we can use the design function to generate different string representations, like this:
 
 ```
-// Default (no arguments) returns a space separated string in camel case
+// Default (no arguments) returns a space separated string
 let output1 = dsbdes.design(); // the camel walks through the hot desert
 
-// Empty delimiter returns a string in camel case without spaces
-let output2 = dsbdes.design(""); // thecamelwalksthroughthehotdesert
+// Empty delimiter returns a string without spaces
+let output2 = dsbdes.design(""); // thecamelwalksthroughhotdesert
 
 // Delimiter "-" returns a hyphen separated string in kebab case
-let output3 = dsbdes.design("", "-"); // the-camel-walks-through-the-hot-desert
+let output3 = dsbdes.design("", "-"); // the-camel-walks-through-hot-desert
 
-// Pascal case with no delimiter
-let output4 = dsbdes.design("pascal"); // TheCamelWalksThroughTheHotDesert
+// Pascal case with no delimiter and 'pascal-' minus '-' property to remove duplicates
+let output4 = dsbdes.design("pascal-"); // theCamelWalksThroughHotDesert
 
 // Pascal case with delimiter "~"
-let output5 = dsbdes.design("pascal", "~"); // The~Camel~Walks~Through~The~Hot~Desert
+let output5 = dsbdes.design("pascal", "~"); // the~Camel~Walks~Through~The~Hot~Desert
 
 // Camel case with no delimiter
 let output6 = dsbdes.design("camel"); // theCamelWalksThroughTheHotDesert
 
-// Camel case with delimiter "@"
-let output7 = dsbdes.design("camel", " @"); // the @Camel @Walks @Through @The @Hot @Desert
+// Camel case with delimiter " @"  and 'camel-' minus '-' property to remove duplicates
+let output7 = dsbdes.design("camel-", " @"); // the @Camel @Walks @Through @Hot @Desert
 
 ```
 

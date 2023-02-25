@@ -86,7 +86,7 @@ function bow_f(inputsent, jsobData, dispout) {
     var inputsentArr = dstok.tok(inputsent, 0).tokArr();
     let bows = getBows(inputsentArr, tokenWords);
     let charBow = getCharBows(inputsentArr);
-    let bow = bowsObj(tokenWords, bows[0], bows[1], charBow);
+    let bow = bowsObj(tokenWords, bows[0], bows[1], charBow, inputsent);
     display(bow, dispout); /// DISPLAY >>
     return bow;
   }
@@ -135,7 +135,7 @@ function getCharBows(sentence) {
   return [bag, sentence, spstr];
 }
 
-function bowsObj(tokenWords, wBow, nBow, charBow) {
+function bowsObj(tokenWords, wBow, nBow, charBow, inputsent) {
   const bowobj = {
     tokenized: tokenWords,
     word_bow: wBow,
@@ -160,6 +160,7 @@ function bowsObj(tokenWords, wBow, nBow, charBow) {
         type,
         delimiter,
         tokenWords,
+        inputsent,
         this.proc_str,
         this.cont_str
       );
@@ -168,17 +169,22 @@ function bowsObj(tokenWords, wBow, nBow, charBow) {
   return bowobj;
 }
 
-function designTypes(type, delimiter, tokenWords, str, cont_str) {
+function designTypes(type, delimiter, tokenWords, inputsent, str, cont_str) {
+  inputsent = inputsent.split(" ");
   if (type == undefined) {
     return str;
   } else {
     if (type != "") {
-      type = ds_clnstr.clnstr(type).txt();
+      type = ds_clnstr.clnstr(type).pnc();
     }
-    if (type == "camel") {
+    if (type == "camel-") {
       return camel(tokenWords, delimiter);
-    } else if (type == "pascal") {
+    } else if (type == "pascal-") {
       return pascal(tokenWords, delimiter);
+    } else if (type == "camel") {
+      return camel(inputsent, delimiter);
+    } else if (type == "pascal") {
+      return pascal(inputsent, delimiter);
     } else if (type == "") {
       return set(tokenWords, delimiter);
     } else {
@@ -186,6 +192,7 @@ function designTypes(type, delimiter, tokenWords, str, cont_str) {
     }
   }
 }
+ 
 
 function set(tokenWords, delimiter) {
   let desDtr = tokenWords[0];

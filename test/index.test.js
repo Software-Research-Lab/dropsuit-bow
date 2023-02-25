@@ -6,6 +6,7 @@ const dropsuit_bow = require("../index.js");
 //#region Expected input and outputs
 
 let input = "John likes to watch movies. Mary likes movies too.";
+let design_input = "the camel walks through the hot desert";
 
 let inputArray = [
   "John likes to watch movies. Mary likes movies too.",
@@ -100,13 +101,13 @@ let charFreqVec = {
   y: 1,
 };
 
-let clean_string = "john likes to watch movies mary likes movies too";
-let string_design_basic = "johnlikestowatchmoviesmarytoo";
-let string_delimiter = "john-likes-to-watch-movies-mary-too";
-let pascal_case = "JohnLikesToWatchMoviesMaryToo";
-let pascal_case_delimiter = "John-Likes-To-Watch-Movies-Mary-Too";
-let camel_case = "johnLikesToWatchMoviesMaryToo";
-let camel_case_delimiter = "john~Likes~To~Watch~Movies~Mary~Too";
+let clean_string = "the camel walks through the hot desert";
+let string_design_basic = "thecamelwalksthroughhotdesert";
+let string_delimiter = "the-camel-walks-through-hot-desert";
+let pascal_case = "theCamelWalksThroughHotDesert";
+let pascal_case_delimiter = "the~Camel~Walks~Through~The~Hot~Desert";
+let camel_case = "theCamelWalksThroughTheHotDesert";
+let camel_case_delimiter = "the @Camel @Walks @Through @Hot @Desert";
 
 //#endregion
 
@@ -136,7 +137,7 @@ describe("dropsuit-bow", () => {
     it(CorpusBasedFrequencyCount, () => {
       let inputs = "a e b c u a";
       let vocabularyCorpus = ["x a b c", "a b c x", "c a x b x"];
-      // BOW 
+      // BOW
       let dsbow1 = new dropsuit_bow(null, false);
       let val1 = dsbow1.bow(inputs).value();
       let bow1 = dsbow1.bow(inputs).bow();
@@ -241,13 +242,13 @@ describe("dropsuit-bow", () => {
 
     it("String design case and delimiter options", () => {
       let dsbdes = new dropsuit_bow(null, false);
-      let output1 = dsbdes.bow(input).design();
-      let output2 = dsbdes.bow(input).design(""); /// Equal result: // .design("-"); // .design("", ""); // .design("xpkd", "ztfp")
-      let output3 = dsbdes.bow(input).design("", "-");
-      let output4 = dsbdes.bow(input).design("pascal"); /// Equal result: // .design("pascal", "");
-      let output5 = dsbdes.bow(input).design("pascal", "-");
-      let output6 = dsbdes.bow(input).design("camel"); // .design("camel", "");
-      let output7 = dsbdes.bow(input).design("camel", "~");
+      let output1 = dsbdes.bow(design_input).design();
+      let output2 = dsbdes.bow(design_input).design(""); /// Equal result: // .design("-"); // .design("", ""); // .design("xpkd", "ztfp")
+      let output3 = dsbdes.bow(design_input).design("", "-");
+      let output4 = dsbdes.bow(design_input).design("pascal-"); /// Equal result: // .design("pascal", "");
+      let output5 = dsbdes.bow(design_input).design("pascal", "~");
+      let output6 = dsbdes.bow(design_input).design("camel"); // .design("camel", "");
+      let output7 = dsbdes.bow(design_input).design("camel-", " @");
 
       //#region design examples log
       console.log(
