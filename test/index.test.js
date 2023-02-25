@@ -104,8 +104,8 @@ let charFreqVec = {
 let clean_string = "the camel walks through the hot desert";
 let string_design_basic = "thecamelwalksthroughhotdesert";
 let string_delimiter = "the-camel-walks-through-hot-desert";
-let pascal_case = "theCamelWalksThroughHotDesert";
-let pascal_case_delimiter = "the~Camel~Walks~Through~The~Hot~Desert";
+let pascal_case = "TheCamelWalksThroughHotDesert";
+let pascal_case_delimiter = "The~Camel~Walks~Through~The~Hot~Desert";
 let camel_case = "theCamelWalksThroughTheHotDesert";
 let camel_case_delimiter = "the @Camel @Walks @Through @Hot @Desert";
 

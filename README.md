@@ -120,10 +120,10 @@ let output2 = dsbdes.bow(input).design(""); // thecamelwalksthroughhotdesert
 let output3 = dsbdes.bow(input).design("", "-"); // the-camel-walks-through-hot-desert
 
 // Pascal case with no delimiter and 'pascal-' minus '-' property to remove duplicates
-let output4 = dsbdes.bow(input).design("pascal-"); // theCamelWalksThroughHotDesert
+let output4 = dsbdes.bow(input).design("pascal-"); // TheCamelWalksThroughHotDesert
 
 // Pascal case with delimiter "~"
-let output5 = dsbdes.bow(input).design("pascal", "~"); // the~Camel~Walks~Through~The~Hot~Desert
+let output5 = dsbdes.bow(input).design("pascal", "~"); // The~Camel~Walks~Through~The~Hot~Desert
 
 // Camel case with no delimiter
 let output6 = dsbdes.bow(input).design("camel"); // theCamelWalksThroughTheHotDesert
