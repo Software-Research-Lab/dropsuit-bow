@@ -258,13 +258,13 @@ describe("dropsuit-bow", () => {
         output2,
         "\nOutput bow().design('', '-'):",
         output3,
-        "\nOutput bow().design('pascal'):",
+        "\nOutput bow().design('pascal-'):",
         output4,
         "\nOutput bow().design('pascal', '+'):",
         output5,
         "\nOutput bow().design('camel'):",
         output6,
-        "\nOutput bow().design('camel', '~'):",
+        "\nOutput bow().design('camel-', '~'):",
         output7
       );
       //#endregion
