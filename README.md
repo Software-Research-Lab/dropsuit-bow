@@ -112,10 +112,10 @@ Then, we can use the design function to generate different string representation
 
 ```
 // Default (no arguments) returns a space separated string in camel case
-let output1 = dsbdes.design(); // theCamelWalksThroughTheHotDesert
+let output1 = dsbdes.design(); // the camel walks through the hot desert
 
 // Empty delimiter returns a string in camel case without spaces
-let output2 = dsbdes.design(""); // theCamelWalksThroughTheHotDesert
+let output2 = dsbdes.design(""); // thecamelwalksthroughthehotdesert
 
 // Delimiter "-" returns a hyphen separated string in kebab case
 let output3 = dsbdes.design("", "-"); // the-camel-walks-through-the-hot-desert
