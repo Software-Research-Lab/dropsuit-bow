@@ -140,21 +140,21 @@ function bowsObj(tokenWords, wBow, nBow, charBow, inputsent) {
   const bowobj = {
     tokenized: tokenWords,
     word_bow: wBow,
-    numb_bow: nBow,
+    val_vect: nBow,
     proc_str: charBow[2],
     cont_str: charBow[1],
-    char_cnt: charBow[0],
+    char_frq: charBow[0],
     tokens: function () {
       return this.tokenized;
     },
-    bow: function () {
+    vector: function () {
       return this.word_bow;
     },
-    value: function () {
-      return this.numb_bow;
+    values: function () {
+      return this.val_vect;
     },
-    count: function () {
-      return this.char_cnt;
+    chars: function () {
+      return this.char_frq;
     },
     design: function (type, delimiter) {
       return designTypes(

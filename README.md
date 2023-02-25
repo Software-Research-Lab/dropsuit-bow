@@ -39,9 +39,9 @@ let dsbow = new dropsuit_bow(null, false);
 
 #### Return option:
 
-- **bow()** Returns the bag of words (BOW) with word count pairs in the format of `{ 'word': 1 }`.
-- **value()** Returns the numeric BOW array `[ 0, 1 ]`
-- **count()** Returns character frequency vector `{ 'a': 1 }`.
+- **vector()** Returns the bag of words (BOW) with word count pairs in the format of `{ 'word': 1 }`.
+- **values()** Returns the numeric BOW values array `[ 0, 1 ]`
+- **chars()** Returns character frequency vector `{ 'a': 1 }`.
 - **tokens()** Returns an array of processed tokens.
 - **design(type, delimiter)** Returns 'pascal' and 'camel' case with delimiter.
 
