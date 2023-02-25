@@ -130,7 +130,7 @@ let output5 = dsbdes.design("pascal", "~"); // The~Camel~Walks~Through~The~Hot~D
 let output6 = dsbdes.design("camel"); // theCamelWalksThroughTheHotDesert
 
 // Camel case with delimiter "@"
-let output7 = dsbdes.design("camel", " @"); // the @camel @walks @through @the @hot @desert
+let output7 = dsbdes.design("camel", " @"); // the @Camel @Walks @Through @The @Hot @Desert
 
 ```
 
