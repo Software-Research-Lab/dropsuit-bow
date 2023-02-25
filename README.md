@@ -97,7 +97,7 @@ Processing output:
 
 ```
 
-## Design
+## Design option
 
 The design(type, delimiter) option in the bow() function returns the output strings in pascal or camel case with the specified delimiter. The type parameter can be either "pascal" or "camel". The delimiter parameter is optional and can be any string. If not provided, the default delimiter is an empty string. Here's an example usage:
 
