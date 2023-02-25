@@ -55,7 +55,7 @@ console.log(out);
 Processing output:
 
 ```
- {
+{
   tokenized: [
     'john',   'likes',
     'to',     'watch',
@@ -63,13 +63,13 @@ Processing output:
     'too'
   ],
   word_bow: { john: 1, likes: 2, to: 1, watch: 1, movies: 2, mary: 1, too: 1 },
-  numb_bow: [
+  val_vect: [
     1, 2, 1, 1,
     2, 1, 1
   ],
   proc_str: 'john likes to watch movies mary likes movies too',
   cont_str: 'johnlikestowatchmoviesmarylikesmoviestoo',
-  char_bow: {
+  char_frq: {
     j: 1,
     o: 6,
     h: 2,
@@ -89,12 +89,11 @@ Processing output:
     y: 1
   },
   tokens: [Function: tokens],
-  bow: [Function: bow],
-  value: [Function: value],
-  design: [Function: design],
-  count: [Function: count]
+  vector: [Function: vector],
+  values: [Function: values],
+  chars: [Function: chars],
+  design: [Function: design]
 }
-
 ```
 
 ## Design option
