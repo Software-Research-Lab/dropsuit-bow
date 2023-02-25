@@ -103,13 +103,13 @@ The design(type, delimiter) option in the bow() function returns the output stri
 
 ```
 let dsbdes = new dropsuit_bow(null, false);
-let output1 = dsbdes.bow(input).design(); // Default behavior: returns output strings in the original case without delimiter
-let output2 = dsbdes.bow(input).design(""); // Equivalent to output1
-let output3 = dsbdes.bow(input).design("", "-"); // Returns output strings in the original case with a hyphen delimiter
-let output4 = dsbdes.bow(input).design("pascal"); // Returns output strings in pascal case without delimiter
-let output5 = dsbdes.bow(input).design("pascal", "-"); // Returns output strings in pascal case with a hyphen delimiter
-let output6 = dsbdes.bow(input).design("camel"); // Returns output strings in camel case without delimiter
-let output7 = dsbdes.bow(input).design("camel", "~"); // Returns output strings in camel case with a tilde delimiter
+let output1 = dsbdes.bow(input).design(); // john likes to watch movies mary likes movies too
+let output2 = dsbdes.bow(input).design(""); // johnlikestowatchmoviesmarytoo
+let output3 = dsbdes.bow(input).design("", "-"); // john-likes-to-watch-movies-mary-too
+let output4 = dsbdes.bow(input).design("pascal"); // JohnLikesToWatchMoviesMaryToo
+let output5 = dsbdes.bow(input).design("pascal", "-"); // John-Likes-To-Watch-Movies-Mary-Too
+let output6 = dsbdes.bow(input).design("camel"); // johnLikesToWatchMoviesMaryToo
+let output7 = dsbdes.bow(input).design("camel", "~"); // john~Likes~To~Watch~Movies~Mary~Too
 ```
 
 Refer to the [tests](https://github.com/ladooniani/dropsuit-bow/blob/main/test/index.test.js) for more information on how to use additional options for Bag of Words. You can provide an 'intentData' object from the [intents.json](https://github.com/ladooniani/dropsuit-bow/blob/main/test/intents.json) file to the constructor using the 'jsonIntStrct' function, as shown below:

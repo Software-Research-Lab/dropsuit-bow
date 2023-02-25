@@ -268,7 +268,7 @@ describe("dropsuit-bow", () => {
       );
       //#endregion
 
-      assert.deepEqual(output1, clean_string); /// john likes to watch movies mary likes movies too
+      assert.deepEqual(output1, clean_string);
       assert.deepEqual(output2, string_design_basic);
       assert.deepEqual(output3, string_delimiter);
       assert.deepEqual(output4, pascal_case);
