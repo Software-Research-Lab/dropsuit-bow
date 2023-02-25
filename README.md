@@ -55,14 +55,15 @@ console.log(out);
 Processing output:
 
 ```
-{
+
+ {
   tokenized: [
     'john',   'likes',
     'to',     'watch',
     'movies', 'mary',
     'too'
   ],
-  word_bow: { john: 1, likes: 2, to: 1, watch: 1, movies: 2, mary: 1, too: 1 },
+  bow_vect: { john: 1, likes: 2, to: 1, watch: 1, movies: 2, mary: 1, too: 1 },
   val_vect: [
     1, 2, 1, 1,
     2, 1, 1
@@ -94,6 +95,7 @@ Processing output:
   chars: [Function: chars],
   design: [Function: design]
 }
+
 ```
 
 ## Design option
