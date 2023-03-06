@@ -42,7 +42,7 @@ function Constructor(inputObj, dsout) {
  * Constructs a new instance of the 'Bag of Words' (BOW) processing object.
  * This function can process an input sentence or word, or use the default input specified in the constructor.
  * @constructor
- * @param {string|null} [input=null] - The input sentence or word to be processed. 
+ * @param {string|null} [input=null] - The input sentence or word to be processed.
  * Leave as `null` to use the default input specified in the constructor.
  * @returns {object} - A 'Bag of Words' object, with a method to retrieve the processed array.
  */
@@ -138,15 +138,12 @@ function getCharBows(sentence) {
 
 function bowsObj(tokenWords, wBow, nBow, charBow, inputsent) {
   const bowobj = {
-    tokenized: tokenWords,
     bow_vect: wBow,
     val_vect: nBow,
+    char_frq: charBow[0],
     proc_str: charBow[2],
     cont_str: charBow[1],
-    char_frq: charBow[0],
-    tokens: function () {
-      return this.tokenized;
-    },
+    tokenized: tokenWords,
     vector: function () {
       return this.bow_vect;
     },
@@ -156,82 +153,11 @@ function bowsObj(tokenWords, wBow, nBow, charBow, inputsent) {
     chars: function () {
       return this.char_frq;
     },
-    design: function (type, delimiter) {
-      return designTypes(
-        type,
-        delimiter,
-        tokenWords,
-        inputsent,
-        this.proc_str,
-        this.cont_str
-      );
+    tokens: function () {
+      return this.tokenized;
     },
   };
   return bowobj;
-}
-
-function designTypes(type, delimiter, tokenWords, inputsent, str, cont_str) {
-  inputsent = inputsent.split(" ");
-  if (type == undefined) {
-    return str;
-  } else {
-    if (type != "") {
-      type = ds_clnstr.clnstr(type).pnc();
-    }
-    if (type == "camel-") {
-      return camel(tokenWords, delimiter);
-    } else if (type == "pascal-") {
-      return pascal(tokenWords, delimiter);
-    } else if (type == "camel") {
-      return camel(inputsent, delimiter);
-    } else if (type == "pascal") {
-      return pascal(inputsent, delimiter);
-    } else if (type == "") {
-      return set(tokenWords, delimiter);
-    } else {
-      return cont_str;
-    }
-  }
-}
-
-function set(tokenWords, delimiter) {
-  let desDtr = tokenWords[0];
-  if (delimiter === undefined) {
-    delimiter = "";
-  }
-  for (let i = 1; i < tokenWords.length; i++) {
-    desDtr = desDtr + delimiter + tokenWords[i];
-  }
-  return desDtr;
-}
-
-function camel(tokenWords, delimiter) {
-  let desDtr;
-  desDtr = tokenWords[0];
-  desDtr = build(tokenWords, desDtr, delimiter);
-  return desDtr;
-}
-
-function pascal(tokenWords, delimiter) {
-  let desDtr;
-  desDtr = capitalize(tokenWords[0]);
-  desDtr = build(tokenWords, desDtr, delimiter);
-  return desDtr;
-}
-
-function build(tokenWords, desDtr, delimiter) {
-  if (delimiter === undefined) {
-    delimiter = "";
-  }
-  for (let i = 1; i < tokenWords.length; i++) {
-    desDtr = desDtr + delimiter + capitalize(tokenWords[i]);
-  }
-  return desDtr;
-}
-
-function capitalize(input) {
-  const output = input.charAt(0).toUpperCase() + input.slice(1);
-  return output;
 }
 
 function arrStrChecker(inputdtwords) {

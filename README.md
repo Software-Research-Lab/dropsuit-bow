@@ -43,7 +43,6 @@ let dsbow = new dropsuit_bow(null, false);
 - **values()** Returns the numeric BOW values array `[ 0, 1 ]`
 - **chars()** Returns character frequency vector `{ 'a': 1 }`.
 - **tokens()** Returns an array of processed tokens.
-- **design(type, delimiter)** Returns 'pascal' and 'camel' case with delimiter.
 
 ```
 let input = "John likes to watch movies. Mary likes movies too.";
@@ -56,20 +55,12 @@ Processing output:
 
 ```
 
- {
-  tokenized: [
-    'john',   'likes',
-    'to',     'watch',
-    'movies', 'mary',
-    'too'
-  ],
+{
   bow_vect: { john: 1, likes: 2, to: 1, watch: 1, movies: 2, mary: 1, too: 1 },
   val_vect: [
     1, 2, 1, 1,
     2, 1, 1
   ],
-  proc_str: 'john likes to watch movies mary likes movies too',
-  cont_str: 'johnlikestowatchmoviesmarylikesmoviestoo',
   char_frq: {
     j: 1,
     o: 6,
@@ -89,48 +80,19 @@ Processing output:
     r: 1,
     y: 1
   },
-  tokens: [Function: tokens],
+  proc_str: 'john likes to watch movies mary likes movies too',
+  cont_str: 'johnlikestowatchmoviesmarylikesmoviestoo',
+  tokenized: [
+    'john',   'likes',
+    'to',     'watch',
+    'movies', 'mary',
+    'too'
+  ],
   vector: [Function: vector],
   values: [Function: values],
   chars: [Function: chars],
-  design: [Function: design]
+  tokens: [Function: tokens]
 }
-
-```
-
-## Design option
-
-The design(type, delimiter) option in the bow() function returns the output strings in pascal or camel case with the specified delimiter. The type parameter can be either "pascal" or "camel". The delimiter parameter is optional and can be any string. If not provided, the default delimiter is an empty string. Here's an example usage:
-
-```
-let input = "The camel walks through the hot desert";
-let dsbdes = new dropsuit_bow(null, false);
-
-```
-
-Then, we can use the design function to generate different string representations, like this:
-
-```
-// Default (no arguments) returns a space separated string
-let output1 = dsbdes.bow(input).design(); // the camel walks through the hot desert
-
-// Empty delimiter returns a string without spaces
-let output2 = dsbdes.bow(input).design(""); // thecamelwalksthroughhotdesert
-
-// Delimiter "-" returns a hyphen separated string in kebab case
-let output3 = dsbdes.bow(input).design("", "-"); // the-camel-walks-through-hot-desert
-
-// Pascal case with no delimiter and 'pascal-' minus '-' property to remove duplicates
-let output4 = dsbdes.bow(input).design("pascal-"); // TheCamelWalksThroughHotDesert
-
-// Pascal case with delimiter "~"
-let output5 = dsbdes.bow(input).design("pascal", "~"); // The~Camel~Walks~Through~The~Hot~Desert
-
-// Camel case with no delimiter
-let output6 = dsbdes.bow(input).design("camel"); // theCamelWalksThroughTheHotDesert
-
-// Camel case with delimiter " @"  and 'camel-' minus '-' property to remove duplicates
-let output7 = dsbdes.bow(input).design("camel-", " @"); // the @Camel @Walks @Through @Hot @Desert
 
 ```
 
