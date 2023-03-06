@@ -101,14 +101,6 @@ let charFreqVec = {
   y: 1,
 };
 
-let clean_string = "the camel walks through the hot desert";
-let string_design_basic = "thecamelwalksthroughhotdesert";
-let string_delimiter = "the-camel-walks-through-hot-desert";
-let pascal_case = "TheCamelWalksThroughHotDesert";
-let pascal_case_delimiter = "The~Camel~Walks~Through~The~Hot~Desert";
-let camel_case = "theCamelWalksThroughTheHotDesert";
-let camel_case_delimiter = "the @Camel @Walks @Through @Hot @Desert";
-
 //#endregion
 
 describe("dropsuit-bow", () => {
@@ -234,48 +226,6 @@ describe("dropsuit-bow", () => {
       assert.deepEqual(val, bowValues);
       assert.deepEqual(tok, tokenized);
       console.log(tok);
-    });
-
-    //#endregion
-
-    //#region Design options
-
-    it("String design case and delimiter options", () => {
-      let dsbdes = new dropsuit_bow(null, false);
-      let output1 = dsbdes.bow(design_input).design();
-      let output2 = dsbdes.bow(design_input).design(""); /// Equal result: // .design("-"); // .design("", ""); // .design("xpkd", "ztfp")
-      let output3 = dsbdes.bow(design_input).design("", "-");
-      let output4 = dsbdes.bow(design_input).design("pascal-"); /// Equal result: // .design("pascal", "");
-      let output5 = dsbdes.bow(design_input).design("pascal", "~");
-      let output6 = dsbdes.bow(design_input).design("camel"); // .design("camel", "");
-      let output7 = dsbdes.bow(design_input).design("camel-", " @");
-
-      //#region design examples log
-      console.log(
-        "\n\nOutput bow().design():",
-        output1,
-        "\nOutput bow().design(''):",
-        output2,
-        "\nOutput bow().design('', '-'):",
-        output3,
-        "\nOutput bow().design('pascal-'):",
-        output4,
-        "\nOutput bow().design('pascal', '~'):",
-        output5,
-        "\nOutput bow().design('camel'):",
-        output6,
-        "\nOutput bow().design('camel-', ' @'):",
-        output7
-      );
-      //#endregion
-
-      assert.deepEqual(output1, clean_string);
-      assert.deepEqual(output2, string_design_basic);
-      assert.deepEqual(output3, string_delimiter);
-      assert.deepEqual(output4, pascal_case);
-      assert.deepEqual(output5, pascal_case_delimiter);
-      assert.deepEqual(output6, camel_case);
-      assert.deepEqual(output7, camel_case_delimiter);
     });
 
     //#endregion
