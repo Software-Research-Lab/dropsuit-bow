@@ -1,14 +1,12 @@
 [<img alt="TAI Lab." width="59px" src="https://github.com/ladooniani/tailab/blob/master/assets/tai_lab_terbinari_cbm_project_logo.png" />](https://github.com/ladooniani/dropsuit#readme)
 
+<!--
 [![npm version](https://img.shields.io/npm/v/dropsuit-bow.svg?style=flat)](https://www.npmjs.com/package/dropsuit-bow) [![npm](https://img.shields.io/npm/dt/dropsuit-bow.svg?style=flat-square)](https://www.npmjs.com/package/dropsuit-bow) [![License](https://img.shields.io/npm/l/dropsuit-bow.svg)](https://www.npmjs.com/package/dropsuit-bow)
+-->
 
-# Overview of [DropSuit](https://github.com/ladooniani/dropsuit#readme) NLP and the bow Function
+# DropSuit NLP: bow Function for Generating a Bag of Words
 
-[DropSuit](https://github.com/ladooniani/dropsuit#readme) NLP is an open-source JavaScript and Node.js library offering diverse functions for natural language processing and data manipulation. The bow function is one of its modules, designed for generating a bag of words from input text and data requests. It returns an array of 'bag of words'. It is available under the Apache License 2.0.
-
-## DropSuit NLP Method: bow - A JavaScript and Node.js function for generating a bag of words from input and data requests
-
-The bow function is a part of the DropSuit NLP library, it's a JavaScript and Node.js function that generates a bag of words from input text and data requests, it returns an array of 'bag of words'. It's open-source and available under the Apache License 2.0.
+[DropSuit](https://github.com/ladooniani/dropsuit#readme) NLP is an open-source JavaScript and Node.js library that offers diverse functions for natural language processing and data manipulation. The bow function is a part of this library and is used for generating a bag of words from input text and data requests. This function returns an array of 'bag of words'. The bow function is open-source and available under the Apache License 2.0.
 
 ### Installation
 
